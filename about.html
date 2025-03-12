@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我 - 嵌入式开发工程师</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .timeline-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .timeline {
+            max-width: 100%;
+            margin: 0;
+            padding: 1rem;
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding: 2rem 0;
+            border-left: 2px solid var(--secondary-color);
+            margin-left: 20px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 32px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+        }
+        
+        .timeline-content {
+            margin-left: 20px;
+            padding: 1rem;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+        }
+
+        .detailed-skills {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .skill-category {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .skill-category h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            margin: 0.5rem 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .skill-list i {
+            color: var(--secondary-color);
+            margin-right: 0.5rem;
+        }
+
+        .achievements {
+            background-color: var(--light-bg);
+            padding: 4rem 2rem;
+        }
+
+        .achievement-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .achievement-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .achievement-card i {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .achievements-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .achievement-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .achievement-card i {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .achievement-icon {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>王文龙</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="about.html">关于我</a></li>
+                <li><a href="projects.html">项目</a></li>
+                <li><a href="https://github.com/wangwenlong" target="_blank">GitHub</a></li>
+                <li><a href="contact.html">联系我</a></li>
+                <li><a href="life.html">生活</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h2>关于我</h2>
+                <p>热衷于嵌入式系统开发，专注于创新解决方案</p>
+            </div>
+        </section>
+
+        <div class="timeline-container">
+            <section class="timeline">
+                <h2 class="section-title">教育背景</h2>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>本科 - 南京信息工程大学</h3>
+                        <p>2013-2015</p>
+                        <ul>
+                            <li>物联网工程专业</li>
+                            <li>专业核心课程优秀</li>
+                            <li>参与多个创新项目</li>
+                            <li>获得优秀毕业生称号</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>专科 - 江苏信息职业技术学院</h3>
+                        <p>2010-2013</p>
+                        <ul>
+                            <li>物联网应用技术专业</li>
+                            <li>国家励志奖学金，院级一等奖学金</li>
+                            <li>个人"江苏工匠"无锡市一等奖，江苏省三等奖</li>
+                            <li>团队"领航杯"大学生信息技术能力比赛暨人工智能大赛一等奖</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="timeline">
+                <h2 class="section-title">职业经历</h2>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>高级嵌入式开发工程师 - ABC科技有限公司</h3>
+                        <p>2020年至今</p>
+                        <ul>
+                            <li>领导开发团队完成多个物联网项目</li>
+                            <li>优化嵌入式系统性能，提升设备运行效率</li>
+                            <li>设计并实现实时操作系统应用</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>嵌入式软件工程师 - XYZ电子有限公司</h3>
+                        <p>2015-2020</p>
+                        <ul>
+                            <li>开发ARM架构的嵌入式应用</li>
+                            <li>实现设备驱动程序和底层通信协议</li>
+                            <li>参与产品从设计到量产的全过程</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <section class="detailed-skills">
+            <div class="skill-category">
+                <h3>编程语言</h3>
+                <ul class="skill-list">
+                    <li><i class="fas fa-check"></i>C/C++</li>
+                    <li><i class="fas fa-check"></i>Python</li>
+                    <li><i class="fas fa-check"></i>Assembly</li>
+                    <li><i class="fas fa-check"></i>Shell Script</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3>开发工具</h3>
+                <ul class="skill-list">
+                    <li><i class="fas fa-check"></i>Keil MDK</li>
+                    <li><i class="fas fa-check"></i>IAR Workbench</li>
+                    <li><i class="fas fa-check"></i>Eclipse IDE</li>
+                    <li><i class="fas fa-check"></i>Git</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3>专业领域</h3>
+                <ul class="skill-list">
+                    <li><i class="fas fa-check"></i>RTOS开发</li>
+                    <li><i class="fas fa-check"></i>驱动程序开发</li>
+                    <li><i class="fas fa-check"></i>物联网协议</li>
+                    <li><i class="fas fa-check"></i>系统优化</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="achievements">
+            <h2>个人成就</h2>
+            <div class="achievement-grid">
+                <div class="achievement-card">
+                    <i class="fas fa-award"></i>
+                    <h3>优秀工程师</h3>
+                    <p>2023年度公司优秀工程师称号</p>
+                </div>
+                <div class="achievement-card">
+                    <i class="fas fa-certificate"></i>
+                    <h3>专业认证</h3>
+                    <p>1+X 传感网中级职业技能证书</p>
+                    <p>大学日语四级</p>
+                    <p>计算机一级MS</p>
+                </div>
+                <div class="achievement-card">
+                    <i class="fas fa-school"></i>
+                    <h3>校园经历</h3>
+                    <p>代表学校助教前往极客营培训机构,组织培训在岗人员职业技能,在岗培训人数100余人</p>
+                    <p>协助教师成功举办 1+X 传感网职业技能考核，参与人数 60余人</p>
+                    <p>院级"青春杯"羽毛球比赛中获得亚军</p>
+                </div>
+                <div class="achievement-card">
+                    <i class="fas fa-trophy"></i>
+                    <h3>竞赛获奖</h3>
+                    <p>"江苏工匠"无锡市一等奖，江苏省三等奖</p>
+                    <p>团队"领航杯"大学生信息技术能力比赛暨人工智能大赛一等奖</p>
+                </div>
+                <div class="achievement-card">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>学术成果</h3>
+                    <p>发表SCI论文3篇，EI论文2篇</p>
+                </div>
+                <div class="achievement-card">
+                    <i class="fas fa-medal"></i>
+                    <h3>奖学金</h3>
+                    <p>国家励志奖学金，院级一等奖学金</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 嵌入式开发工程师. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html> 

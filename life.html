@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<!-- 设置中文语言 -->
+<html lang="zh">
+<head>
+    <!-- 基本元数据设置 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生活 - 嵌入式开发工程师</title>
+    <!-- 引入外部样式表 -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- 引入Font Awesome图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* 生活板块主要区域样式 */
+        .life-section {
+            padding: 4rem 2rem;
+            background-color: var(--light-bg);
+        }
+
+        /* 生活卡片网格布局 */
+        .life-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        /* 生活卡片基本样式 */
+        .life-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        /* 生活卡片悬浮效果 */
+        .life-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 生活卡片图片样式 */
+        .life-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        /* 生活卡片内容区域样式 */
+        .life-card-content {
+            padding: 1.5rem;
+        }
+
+        /* 生活卡片标题样式 */
+        .life-card-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* 生活卡片描述文本样式 */
+        .life-card-content p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* 照片数量标签样式 */
+        .life-card .photo-count {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            z-index: 2;
+        }
+
+        /* 兴趣爱好区域样式 */
+        .hobby-section {
+            background-color: white;
+            padding: 4rem 2rem;
+        }
+
+        /* 兴趣爱好网格布局 */
+        .hobby-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        /* 单个兴趣爱好项样式 */
+        .hobby-item {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--light-bg);
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        /* 兴趣爱好项悬浮效果 */
+        .hobby-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 兴趣爱好图标样式 */
+        .hobby-item i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* 照片墙区域样式 */
+        .photo-gallery {
+            padding: 4rem 2rem;
+            background-color: var(--light-bg);
+        }
+
+        /* 照片墙网格布局 */
+        .gallery-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 250px;
+            gap: 1.5rem;
+            padding: 2rem 0;
+        }
+
+        /* 照片项基本样式 */
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        /* 大尺寸照片项样式 */
+        .gallery-item.large {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        /* 竖向照片项样式 */
+        .gallery-item.vertical {
+            grid-row: span 2;
+            grid-column: span 1.5;
+        }
+
+        /* 扩展照片项样式 */
+        .gallery-item.expanded {
+            grid-column: span 1.5;
+            grid-row: span 1.5;
+        }
+
+        /* 横向照片项样式 */
+        .gallery-item.horizontal {
+            grid-column: span 2;
+        }
+
+        /* 照片项图片样式 */
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        /* 照片项图片悬浮效果 */
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* 照片项遮罩层样式 */
+        .gallery-item .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: white;
+            padding: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        /* 照片项遮罩层悬浮效果 */
+        .gallery-item:hover .overlay {
+            opacity: 1;
+        }
+
+        /* 照片数量标签样式 */
+        .photo-count {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* 照片数量标签图标样式 */
+        .photo-count i {
+            font-size: 1rem;
+        }
+
+        /* 照片集查看器基本样式 */
+        .photo-collection {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            padding: 2rem;
+        }
+
+        /* 照片集查看器激活状态样式 */
+        .photo-collection.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 照片集内容容器样式 */
+        .collection-content {
+            position: relative;
+            max-width: 1200px;
+            width: 100%;
+            height: 80vh;
+        }
+
+        /* 照片集主图区域样式 */
+        .collection-main {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 照片集主图样式 */
+        .collection-main img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        /* 照片集缩略图容器样式 */
+        .collection-thumbs {
+            position: absolute;
+            bottom: -80px;
+            left: 0;
+            right: 0;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        /* 照片集缩略图样式 */
+        .collection-thumb {
+            width: 80px;
+            height: 60px;
+            border-radius: 5px;
+            overflow: hidden;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+        }
+
+        /* 照片集缩略图激活状态样式 */
+        .collection-thumb.active {
+            opacity: 1;
+            border: 2px solid white;
+        }
+
+        /* 照片集缩略图图片样式 */
+        .collection-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 照片集关闭按钮样式 */
+        .collection-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            color: white;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        /* 照片集导航按钮基本样式 */
+        .collection-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        /* 照片集导航按钮悬浮效果 */
+        .collection-nav:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* 上一张按钮位置 */
+        .collection-prev {
+            left: 1rem;
+        }
+
+        /* 下一张按钮位置 */
+        .collection-next {
+            right: 1rem;
+        }
+
+        /* 旅行记录区域样式 */
+        .travel-section {
+            background-color: white;
+            padding: 4rem 2rem;
+        }
+
+        /* 旅行时间线容器样式 */
+        .travel-timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        /* 时间线项目样式 */
+        .timeline-item {
+            margin-bottom: 3rem;
+            position: relative;
+            padding-left: 2rem;
+            border-left: 2px solid var(--primary-color);
+        }
+
+        /* 时间线日期样式 */
+        .timeline-date {
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        /* 个人感悟区域样式 */
+        .quote-section {
+            background-color: var(--light-bg);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        /* 感悟内容容器样式 */
+        .quote-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* 感悟文本样式 */
+        .quote {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        /* 感悟作者样式 */
+        .quote-author {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- 页面头部导航 -->
+    <header>
+        <nav>
+            <!-- 网站Logo -->
+            <div class="logo">
+                <h1>王文龙</h1>
+            </div>
+            <!-- 导航链接列表 -->
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="about.html">关于我</a></li>
+                <li><a href="projects.html">项目</a></li>
+                <li><a href="https://github.com/wangwenlong" target="_blank">GitHub</a></li>
+                <li><a href="contact.html">联系我</a></li>
+                <li><a href="life.html">生活</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 主要内容区域 -->
+    <main>
+        <!-- 页面标题区域 -->
+        <section class="hero">
+            <div class="hero-content">
+                <h2>生活点滴</h2>
+                <p>工作之余的精彩生活</p>
+            </div>
+        </section>
+
+        <!-- 兴趣爱好展示区域 -->
+        <section class="hobby-section">
+            <h2 class="section-title">兴趣爱好</h2>
+            <!-- 兴趣爱好网格 -->
+            <div class="hobby-grid">
+                <!-- 阅读爱好 -->
+                <div class="hobby-item">
+                    <i class="fas fa-book-reader"></i>
+                    <h3>阅读</h3>
+                    <p>喜欢阅读技术书籍和科幻小说，探索新知识。最近在读《三体》和《深入理解计算机系统》</p>
+                </div>
+                <!-- 摄影爱好 -->
+                <div class="hobby-item">
+                    <i class="fas fa-camera"></i>
+                    <h3>摄影</h3>
+                    <p>用镜头记录生活中的美好瞬间，偏爱风光和人文摄影。装备：索尼A7M3</p>
+                </div>
+                <!-- 徒步爱好 -->
+                <div class="hobby-item">
+                    <i class="fas fa-hiking"></i>
+                    <h3>徒步</h3>
+                    <p>享受大自然，探索城市周边的美景。每月至少一次远足活动</p>
+                </div>
+                <!-- 下棋爱好 -->
+                <div class="hobby-item">
+                    <i class="fas fa-chess"></i>
+                    <h3>下棋</h3>
+                    <p>培养战略思维，享受博弈的乐趣。同时在学习围棋，目前入门级水平</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 生活随笔展示区域 -->
+        <section class="life-section">
+            <h2 class="section-title">生活随笔</h2>
+            <!-- 生活随笔卡片网格 -->
+            <div class="life-grid">
+                <!-- 徒步卡片 -->
+                <div class="life-card" onclick="openPhotoCollection('hiking')">
+                    <img src="images/life1.jpg" alt="周末徒步">
+                    <div class="photo-count">
+                        <i class="fas fa-images"></i>
+                        <span>3张</span>
+                    </div>
+                    <div class="life-card-content">
+                        <h3>周末徒步</h3>
+                        <p>上周末和几个好友一起去了黄山，感受大自然的鬼斧神工。清晨的云海尤其震撼。</p>
+                    </div>
+                </div>
+                <!-- 读书分享卡片 -->
+                <div class="life-card" onclick="openPhotoCollection('reading')">
+                    <img src="images/life2.jpg" alt="读书分享">
+                    <div class="photo-count">
+                        <i class="fas fa-images"></i>
+                        <span>3张</span>
+                    </div>
+                    <div class="life-card-content">
+                        <h3>读书分享</h3>
+                        <p>每月一次的读书分享会，这次讨论了《人类简史》，从不同角度看待人类文明的发展。</p>
+                    </div>
+                </div>
+                <!-- 摄影作品卡片 -->
+                <div class="life-card" onclick="openPhotoCollection('photography')">
+                    <img src="images/life3.jpg" alt="摄影作品">
+                    <div class="photo-count">
+                        <i class="fas fa-images"></i>
+                        <span>3张</span>
+                    </div>
+                    <div class="life-card-content">
+                        <h3>摄影作品</h3>
+                        <p>最近迷上了星空摄影，这是在郊外拍摄的银河，用了长曝光技术。</p>
+                    </div>
+                </div>
+                <!-- 棋友聚会卡片 -->
+                <div class="life-card" onclick="openPhotoCollection('chess')">
+                    <img src="images/life4.jpg" alt="棋友聚会">
+                    <div class="photo-count">
+                        <i class="fas fa-images"></i>
+                        <span>3张</span>
+                    </div>
+                    <div class="life-card-content">
+                        <h3>棋友聚会</h3>
+                        <p>和棋友们的定期聚会，切磋技艺之余也交流人生感悟。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 旅行足迹展示区域 -->
+        <section class="travel-section">
+            <h2 class="section-title">旅行足迹</h2>
+            <!-- 旅行时间线 -->
+            <div class="travel-timeline">
+                <!-- 黄山之行 -->
+                <div class="timeline-item">
+                    <div class="timeline-date">2024年3月</div>
+                    <h3>黄山之行</h3>
+                    <p>徒步登山，观云海日出，感受黄山奇松怪石。</p>
+                </div>
+                <!-- 北京之行 -->
+                <div class="timeline-item">
+                    <div class="timeline-date">2024年1月</div>
+                    <h3>北京冬季之旅</h3>
+                    <p>游览故宫、长城，体验北方冬季的独特魅力。</p>
+                </div>
+                <!-- 杭州之行 -->
+                <div class="timeline-item">
+                    <div class="timeline-date">2023年10月</div>
+                    <h3>杭州西湖</h3>
+                    <p>漫步西湖，品茶赏月，感受江南水乡的诗意。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 照片墙展示区域 -->
+        <section class="photo-gallery">
+            <h2 class="section-title">照片墙</h2>
+            <!-- 照片网格 -->
+            <div class="gallery-grid">
+                <!-- 南京生活照片组 -->
+                <div class="gallery-item large" onclick="openPhotoCollection('nanjing')">
+                    <img src="images/gallery1.jpg" alt="南京生活">
+                    <div class="overlay">
+                        <h3>南京生活</h3>
+                        <p>2024年3月</p>
+                    </div>
+                    <div class="photo-count">
+                        <i class="fas fa-images"></i>
+                        <span>4张</span>
+                    </div>
+                </div>
+                <!-- 灵隐寺照片组 -->
+                <div class="gallery-item vertical" onclick="openPhotoCollection('lingyin')">
+                    <img src="images/gallery2.jpg" alt="灵隐之行">
+                    <div class="overlay">
+                        <h3>灵隐之行</h3>
+                        <p>2024年1月</p>
+                    </div>
+                    <div class="photo-count">
+                        <i class="fas fa-images"></i>
+                        <span>3张</span>
+                    </div>
+                </div>
+                <!-- 苏州园林照片组 -->
+                <div class="gallery-item expanded" onclick="openPhotoCollection('suzhou')">
+                    <img src="images/gallery3.jpg" alt="苏州园林">
+                    <div class="overlay">
+                        <h3>苏州园林</h3>
+                        <p>2023年夏</p>
+                    </div>
+                    <div class="photo-count">
+                        <i class="fas fa-images"></i>
+                        <span>5张</span>
+                    </div>
+                </div>
+                <!-- 美食照片组 -->
+                <div class="gallery-item horizontal" onclick="openPhotoCollection('food')">
+                    <img src="images/gallery4.jpg" alt="享受美食">
+                    <div class="overlay">
+                        <h3>享受美食</h3>
+                        <p>2024年2月</p>
+                    </div>
+                    <div class="photo-count">
+                        <i class="fas fa-images"></i>
+                        <span>6张</span>
+                    </div>
+                </div>
+                <!-- 古镇照片组 -->
+                <div class="gallery-item" onclick="openPhotoCollection('ancient')">
+                    <img src="images/gallery5.jpg" alt="江南古镇">
+                    <div class="overlay">
+                        <h3>江南古镇</h3>
+                        <p>2023年秋</p>
+                    </div>
+                    <div class="photo-count">
+                        <i class="fas fa-images"></i>
+                        <span>4张</span>
+                    </div>
+                </div>
+                <!-- 夜景照片组 -->
+                <div class="gallery-item horizontal" onclick="openPhotoCollection('night')">
+                    <img src="images/gallery6.jpg" alt="城市夜景">
+                    <div class="overlay">
+                        <h3>城市夜景</h3>
+                        <p>2024年春</p>
+                    </div>
+                    <div class="photo-count">
+                        <i class="fas fa-images"></i>
+                        <span>3张</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 照片集查看器 -->
+        <div class="photo-collection" id="photoCollection">
+            <!-- 关闭按钮 -->
+            <button class="collection-close" onclick="closePhotoCollection()">
+                <i class="fas fa-times"></i>
+            </button>
+            <!-- 照片集内容区域 -->
+            <div class="collection-content">
+                <!-- 主图显示区域 -->
+                <div class="collection-main">
+                    <!-- 上一张按钮 -->
+                    <button class="collection-nav collection-prev" onclick="prevPhoto()">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <!-- 主图 -->
+                    <img src="" alt="" id="mainPhoto">
+                    <!-- 下一张按钮 -->
+                    <button class="collection-nav collection-next" onclick="nextPhoto()">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                <!-- 缩略图区域 -->
+                <div class="collection-thumbs" id="photoThumbs">
+                    <!-- 缩略图将通过JavaScript动态添加 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 个人感悟区域 -->
+        <section class="quote-section">
+            <div class="quote-container">
+                <p class="quote">"生活不止眼前的代码，还有诗和远方。"</p>
+                <p class="quote-author">- 个人感悟</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页面底部 -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 嵌入式开发工程师. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript代码 -->
+    <script>
+        /**
+         * 照片集数据对象
+         * 包含所有照片集的配置信息
+         */
+        const photoCollections = {
+            // 生活随笔照片集
+            hiking: [
+                { src: 'images/life1.jpg', alt: '黄山云海' },
+                { src: 'images/life1_2.jpg', alt: '登山途中' },
+                { src: 'images/life1_3.jpg', alt: '山顶合影' }
+            ],
+            reading: [
+                { src: 'images/life2.jpg', alt: '读书会讨论' },
+                { src: 'images/life2_2.jpg', alt: '笔记分享' },
+                { src: 'images/life2_3.jpg', alt: '主题演讲' }
+            ],
+            photography: [
+                { src: 'images/life3.jpg', alt: '星空银河' },
+                { src: 'images/life3_2.jpg', alt: '城市掠影' },
+                { src: 'images/life3_3.jpg', alt: '自然风光' }
+            ],
+            chess: [
+                { src: 'images/life4.jpg', alt: '棋友对弈' },
+                { src: 'images/life4_2.jpg', alt: '围棋学习' },
+                { src: 'images/life4_3.jpg', alt: '茶话分享' }
+            ],
+            // 照片墙照片集
+            nanjing: [
+                { src: 'images/gallery1.jpg', alt: '南京夫子庙' },
+                { src: 'images/gallery1_2.jpg', alt: '玄武湖公园' },
+                { src: 'images/gallery1_3.jpg', alt: '明孝陵' },
+                { src: 'images/gallery1_4.jpg', alt: '秦淮河夜景' }
+            ],
+            lingyin: [
+                { src: 'images/gallery2.jpg', alt: '灵隐寺' },
+                { src: 'images/gallery2_2.jpg', alt: '飞来峰' },
+                { src: 'images/gallery2_3.jpg', alt: '九溪烟树' }
+            ],
+            suzhou: [
+                { src: 'images/gallery3.jpg', alt: '拙政园' },
+                { src: 'images/gallery3_2.jpg', alt: '狮子林' },
+                { src: 'images/gallery3_3.jpg', alt: '虎丘塔' },
+                { src: 'images/gallery3_4.jpg', alt: '网师园' },
+                { src: 'images/gallery3_5.jpg', alt: '平江路' }
+            ],
+            food: [
+                { src: 'images/gallery4.jpg', alt: '江南小吃' },
+                { src: 'images/gallery4_2.jpg', alt: '本帮菜' },
+                { src: 'images/gallery4_3.jpg', alt: '点心' },
+                { src: 'images/gallery4_4.jpg', alt: '茶文化' },
+                { src: 'images/gallery4_5.jpg', alt: '特色面点' },
+                { src: 'images/gallery4_6.jpg', alt: '传统糕点' }
+            ],
+            ancient: [
+                { src: 'images/gallery5.jpg', alt: '周庄古镇' },
+                { src: 'images/gallery5_2.jpg', alt: '同里古镇' },
+                { src: 'images/gallery5_3.jpg', alt: '甪直古镇' },
+                { src: 'images/gallery5_4.jpg', alt: '锦溪古镇' }
+            ],
+            night: [
+                { src: 'images/gallery6.jpg', alt: '南京夜景' },
+                { src: 'images/gallery6_2.jpg', alt: '苏州夜景' },
+                { src: 'images/gallery6_3.jpg', alt: '杭州夜景' }
+            ]
+        };
+
+        // 当前照片集和索引
+        let currentCollection = [];
+        let currentIndex = 0;
+
+        /**
+         * 打开照片集查看器
+         * @param {string} collectionName - 照片集名称
+         */
+        function openPhotoCollection(collectionName) {
+            currentCollection = photoCollections[collectionName];
+            currentIndex = 0;
+            updatePhotoCollection();
+            document.getElementById('photoCollection').classList.add('active');
+        }
+
+        /**
+         * 关闭照片集查看器
+         */
+        function closePhotoCollection() {
+            document.getElementById('photoCollection').classList.remove('active');
+        }
+
+        /**
+         * 更新照片集显示
+         * 更新主图和缩略图的显示状态
+         */
+        function updatePhotoCollection() {
+            const mainPhoto = document.getElementById('mainPhoto');
+            const thumbsContainer = document.getElementById('photoThumbs');
+            
+            // 更新主图
+            mainPhoto.src = currentCollection[currentIndex].src;
+            mainPhoto.alt = currentCollection[currentIndex].alt;
+
+            // 更新缩略图
+            thumbsContainer.innerHTML = '';
+            currentCollection.forEach((photo, index) => {
+                const thumb = document.createElement('div');
+                thumb.className = `collection-thumb ${index === currentIndex ? 'active' : ''}`;
+                thumb.onclick = () => {
+                    currentIndex = index;
+                    updatePhotoCollection();
+                };
+                thumb.innerHTML = `<img src="${photo.src}" alt="${photo.alt}">`;
+                thumbsContainer.appendChild(thumb);
+            });
+        }
+
+        /**
+         * 切换到上一张照片
+         * 循环切换到最后一张
+         */
+        function prevPhoto() {
+            currentIndex = (currentIndex - 1 + currentCollection.length) % currentCollection.length;
+            updatePhotoCollection();
+        }
+
+        /**
+         * 切换到下一张照片
+         * 循环切换到第一张
+         */
+        function nextPhoto() {
+            currentIndex = (currentIndex + 1) % currentCollection.length;
+            updatePhotoCollection();
+        }
+
+        /**
+         * 键盘事件监听器
+         * Esc: 关闭照片集
+         * 左箭头: 上一张
+         * 右箭头: 下一张
+         */
+        document.addEventListener('keydown', (e) => {
+            // 只在照片集打开时响应键盘事件
+            if (!document.getElementById('photoCollection').classList.contains('active')) return;
+            
+            // 根据按键执行相应操作
+            if (e.key === 'Escape') closePhotoCollection();
+            if (e.key === 'ArrowLeft') prevPhoto();
+            if (e.key === 'ArrowRight') nextPhoto();
+        });
+    </script>
+</body>
+</html> 
