@@ -34,8 +34,8 @@
             overflow: hidden;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s;
-            cursor: pointer;
             position: relative;
+            padding: 1.5rem;
         }
 
         /* 生活卡片悬浮效果 */
@@ -44,28 +44,32 @@
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
         }
 
-        /* 生活卡片图片样式 */
-        .life-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
         /* 生活卡片内容区域样式 */
         .life-card-content {
-            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
         }
 
         /* 生活卡片标题样式 */
         .life-card-content h3 {
             color: var(--primary-color);
-            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* 生活卡片日期样式 */
+        .life-date {
+            color: #666;
+            font-size: 0.9rem;
+            font-style: italic;
         }
 
         /* 生活卡片描述文本样式 */
         .life-card-content p {
-            color: #666;
-            line-height: 1.6;
+            color: #444;
+            line-height: 1.8;
+            margin: 0;
         }
 
         /* 照片数量标签样式 */
@@ -471,52 +475,36 @@
             <h2 class="section-title">生活随笔</h2>
             <!-- 生活随笔卡片网格 -->
             <div class="life-grid">
-                <!-- 徒步卡片 -->
-                <div class="life-card" onclick="openPhotoCollection('hiking')">
-                    <img src="images/life1.jpg" alt="周末徒步">
-                    <div class="photo-count">
-                        <i class="fas fa-images"></i>
-                        <span>3张</span>
-                    </div>
+                <!-- 徒步随笔 -->
+                <div class="life-card">
                     <div class="life-card-content">
                         <h3>周末徒步</h3>
-                        <p>上周末和几个好友一起去了黄山，感受大自然的鬼斧神工。清晨的云海尤其震撼。</p>
+                        <p class="life-date">2024年3月15日</p>
+                        <p>上周末和几个好友一起去了黄山，感受大自然的鬼斧神工。清晨的云海尤其震撼，站在山顶俯瞰云海翻滚，犹如置身仙境。此行不仅锻炼了身体，更让心灵得到了洗涤。</p>
                     </div>
                 </div>
-                <!-- 读书分享卡片 -->
-                <div class="life-card" onclick="openPhotoCollection('reading')">
-                    <img src="images/life2.jpg" alt="读书分享">
-                    <div class="photo-count">
-                        <i class="fas fa-images"></i>
-                        <span>3张</span>
-                    </div>
+                <!-- 读书分享随笔 -->
+                <div class="life-card">
                     <div class="life-card-content">
                         <h3>读书分享</h3>
-                        <p>每月一次的读书分享会，这次讨论了《人类简史》，从不同角度看待人类文明的发展。</p>
+                        <p class="life-date">2024年3月1日</p>
+                        <p>每月一次的读书分享会，这次讨论了《人类简史》，从不同角度看待人类文明的发展。书中关于认知革命的观点特别有趣，引发了大家热烈的讨论。通过交流，获得了很多新的见解。</p>
                     </div>
                 </div>
-                <!-- 摄影作品卡片 -->
-                <div class="life-card" onclick="openPhotoCollection('photography')">
-                    <img src="images/life3.jpg" alt="摄影作品">
-                    <div class="photo-count">
-                        <i class="fas fa-images"></i>
-                        <span>3张</span>
-                    </div>
+                <!-- 技术思考随笔 -->
+                <div class="life-card">
                     <div class="life-card-content">
-                        <h3>摄影作品</h3>
-                        <p>最近迷上了星空摄影，这是在郊外拍摄的银河，用了长曝光技术。</p>
+                        <h3>技术与生活</h3>
+                        <p class="life-date">2024年2月20日</p>
+                        <p>最近在思考技术与生活的平衡。作为一名工程师，既要保持对技术的热情，也要享受生活的美好。找到这个平衡点很重要，它能让我们在追求专业成长的同时，不忘生活的诗意。</p>
                     </div>
                 </div>
-                <!-- 棋友聚会卡片 -->
-                <div class="life-card" onclick="openPhotoCollection('chess')">
-                    <img src="images/life4.jpg" alt="棋友聚会">
-                    <div class="photo-count">
-                        <i class="fas fa-images"></i>
-                        <span>3张</span>
-                    </div>
+                <!-- 生活感悟随笔 -->
+                <div class="life-card">
                     <div class="life-card-content">
-                        <h3>棋友聚会</h3>
-                        <p>和棋友们的定期聚会，切磋技艺之余也交流人生感悟。</p>
+                        <h3>生活感悟</h3>
+                        <p class="life-date">2024年2月10日</p>
+                        <p>和棋友们的定期聚会，不仅是切磋技艺的时光，更是交流人生感悟的机会。围棋如人生，有得有失，关键是保持平和的心态，享受过程。</p>
                     </div>
                 </div>
             </div>
@@ -823,4 +811,5 @@
         });
     </script>
 </body>
+</html> 
 </html> 
